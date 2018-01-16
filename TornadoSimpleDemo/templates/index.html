@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        {% for item in user_list %}
+        <li>{{ item }}</li>
+        {% end %}
+    </ul>
+    <h1>索引取值:{{ user_list[0] }}</h1>
+    <h1>字典索引取值:{{ user_dict['name']}}</h1>
+    <h1>字典get取值:{{ user_dict.get('name')}}</h1>
+</body>
+</html>

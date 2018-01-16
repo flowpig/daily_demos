@@ -40,8 +40,8 @@ class LoginHandler(tornado.web.RequestHandler):
         #取POST数据
         # import pdb
         # pdb.set_trace()
-        print(self.get_body_argument('user'))      # alex
-        print(self.get_body_arguments('user'))     # ['alex']
+        print(self.get_body_argument('user'))      # clark
+        print(self.get_body_arguments('user'))     # ['clark']
         if self.get_body_argument('user')  == 'clark' and self.get_body_argument('pwd') == '123':
             self.set_secure_cookie('user',self.get_body_argument('user'))
             self.redirect('/index')

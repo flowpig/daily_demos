@@ -11,8 +11,8 @@ db.bind("sqlite","D:\日常python学习PY2\Pony学习\music.sqlite",create_db=Tr
 
 
 # turn on debug mode
-pny.sql_debug(True)
+pny.sql_debug(True)		# 显示debug信息(sql语句)
 
 # map the models to the database
 # and create the tables, if they don't exist
-db.generate_mapping(create_tables=True)
+db.generate_mapping(create_tables=True)		# 如果数据库表没有创建表

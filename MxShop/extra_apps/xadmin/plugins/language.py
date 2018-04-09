@@ -1,4 +1,3 @@
-
 from django.conf import settings
 from django.template import loader
 from django.views.i18n import set_language
@@ -24,4 +23,4 @@ class SetLangView(BaseAdminView):
 
 if settings.LANGUAGES and 'django.middleware.locale.LocaleMiddleware' in settings.MIDDLEWARE:
     site.register_plugin(SetLangNavPlugin, CommAdminView)
-    site.register_view(r'^i18n/setlang/$', SetLangView, 'set_language')
+site.register_view(r'^i18n/setlang/$', SetLangView, 'set_language')

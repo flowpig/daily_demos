@@ -11,9 +11,14 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, BASE_DIR)
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,7 +44,11 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.goods',
     'apps.trade',
-    'apps.user_operation'
+    'apps.user_operation',
+	'rest_framework',
+	'extra_apps.xadmin',
+	'crispy_forms',
+	'extra_apps.DjangoUeditor'
 ]
 
 MIDDLEWARE = [

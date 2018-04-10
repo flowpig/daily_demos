@@ -63,7 +63,6 @@ class LoginView(BaseAdminView):
             'template_name': self.login_template or 'xadmin/views/login.html',
         }
         self.update_params(defaults)
-        print(defaults)
         return login(request, **defaults)
 
     @never_cache

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-text&v-html 实例</title>
+    <script type="text/javascript" src="../asserts/js/vue.js"></script>
+</head>
+<body>
+<h1>v-text&v-html 实例</h1>
+<hr>
+<div id="myapp">
+    <div v-text="message"></div>
+    <div v-html="dodo"></div>
+</div>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#myapp',
+        data: {
+            message: 'Hello',
+            dodo: '<h2>Hello Dodo</h2>'
+        },
+    });
+</script>
+</body>
+</html>

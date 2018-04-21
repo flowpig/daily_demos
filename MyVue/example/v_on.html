@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on 实例</title>
+    <script type="text/javascript" src="../asserts/js/vue.js"></script>
+</head>
+<body>
+    <h1>v-on 实例</h1>
+    <hr>
+    <div id="myapp">
+        本场比赛分数: {{score}}
+        <p>
+            <button v-on:click="addScore">加分</button>
+            <!--<button @click="addScore">加分</button>-->
+            <input type="text" v-on:keyup.enter="onEnter" v-model="secondCount">
+            <!--<input type="text" v-on:keyup.13="onEnter" v-model="secondCount">-->
+        </p>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#myapp',
+            data: {
+                score: 0,
+                secondCount: 1
+            },
+            methods: {
+                addScore: function () {
+                    this.score++
+                },
+                onEnter: function () {
+                    this.score = this.score + parseInt(this.secondCount)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

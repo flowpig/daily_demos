@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>其它指令v-pre,v-cloak,v-once</title>
+    <script type="text/javascript" src="../asserts/js/vue.js"></script>
+</head>
+<body>
+    <h1>其它指令v-pre,v-cloak,v-once</h1>
+    <hr>
+    <div id="myapp">
+        <div v-pre>{{message}}</div>
+        <div v-cloak>渲染完成才显示！</div>
+        <p v-once>{{message}}</p>
+        <div><input type="text" v-model="message"></div>
+        <p>{{message}}</p>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#myapp',
+            data: {
+                message: 'hello world'
+            }
+        })
+    </script>
+</body>
+</html>

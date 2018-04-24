@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue.set全局操作</title>
+    <script type="text/javascript" src="../asserts/js/vue.js"></script>
+</head>
+<body>
+<h2>vue.set全局操作</h2>
+<hr>
+<div id="app">
+    <ul>
+        <li v-for="aa in arr">{{aa}}</li>
+    </ul>
+</div>
+<button onclick="add()">外部添加</button>
+
+<script type="text/javascript">
+    var outData = {
+        arr: ['aaa', 'bbb', 'ccc']
+    };
+
+    var app = new Vue({
+        el: "#app",
+        data: outData
+    });
+
+    function add() {
+        console.log("我已经执行了");
+        app.$data.arr[1] = 'dddd';
+//        Vue.set(app.$data.arr, 1, 'dddd')
+    }
+
+</script>
+<script>
+    //在构造器外部声明数据
+    //         var outData={
+    //            count:1,
+    //            goodName:'car'
+    //        };
+    //        var app=new Vue({
+    //            el:'#app',
+    //            //引用外部数据
+    //            data:outData
+    //        })
+
+
+    //        ### 外部改变内部数据的三种方法
+    //        1、用Vue.set改变
+    //         function add(){
+    //               Vue.set(outData,'count',4);
+    //         }
+    //        2、用Vue对象的方法添加
+    //        app.$data.count++
+    //        3、直接操作外部数据
+    //        outData.count++;
+    //        其实这三种方式都可以操作外部的数据，Vue也给我们增加了一种操作外部数据的方法。
+</script>
+</body>
+</html>

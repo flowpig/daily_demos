@@ -84,15 +84,16 @@ def xstatic(*tags):
 
 
 def vendor(*tags):
-    media = Media()
+    css = {'screen': []}
+    js = []
     for tag in tags:
         file_type = tag.split('.')[-1]
         files = xstatic(tag)
         if file_type == 'js':
-            media.add_js(files)
+            js.extend(files)
         elif file_type == 'css':
-            media.add_css({'screen': files})
-    return media
+            css['screen'] += files
+    return Media(css=css, js=js)
 
 
 def lookup_needs_distinct(opts, lookup_path):
@@ -343,7 +344,7 @@ def display_for_field(value, field):
         return formats.number_format(value, field.decimal_places)
     elif isinstance(field, models.FloatField):
         return formats.number_format(value)
-    elif isinstance(field.rel, models.ManyToManyRel):
+    elif isinstance(field.remote_field, models.ManyToManyRel):
         return ', '.join([smart_text(obj) for obj in value.all()])
     else:
         return smart_text(value)

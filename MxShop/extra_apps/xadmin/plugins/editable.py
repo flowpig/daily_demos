@@ -32,7 +32,7 @@ class EditablePlugin(BaseAdminPlugin):
         return active
 
     def result_item(self, item, obj, field_name, row):
-        if self.list_editable and item.field and item.field.editable and (field_name in self.list_editable):            
+        if self.list_editable and item.field and item.field.editable and (field_name in self.list_editable):
             pk = getattr(obj, obj._meta.pk.attname)
             field_label = label_for_field(field_name, obj,
                                           model_admin=self.admin_view,
@@ -75,7 +75,7 @@ class EditPatchView(ModelFormAdminView, ListAdminView):
 
     def get_new_field_html(self, f):
         result = self.result_item(self.org_obj, f, {'is_display_first':
-                                  False, 'object': self.org_obj})
+                                                    False, 'object': self.org_obj})
         return mark_safe(result.text) if result.allow_tags else conditional_escape(result.text)
 
     def _get_new_field_html(self, field_name):

@@ -26,13 +26,13 @@
 # viewsets自动生成路由
 
 from django.conf.urls import url, include
-from snippets import testview8
+from snippets import testview8,testview9
 from rest_framework.routers import DefaultRouter
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
-router.register(r'snippets', testview8.SnippetViewSet)
-router.register(r'users', testview8.UserViewSet)
+router.register(r'snippets', testview9.SnippetViewSet)
+router.register(r'users', testview9.UserViewSet)
 
 # The API URLs are now determined automatically by the router.
 # Additionally, we include the login URLs for the browsable API.

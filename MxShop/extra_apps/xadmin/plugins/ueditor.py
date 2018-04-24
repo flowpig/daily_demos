@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'bobby'
-
 import xadmin
 from xadmin.views import BaseAdminPlugin, CreateAdminView, ModelFormAdminView, UpdateAdminView
 from DjangoUeditor.models import UEditorField

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue_key管理可复用的元素</title>
+    <script type="text/javascript" src="../asserts/js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username" key="username-input">
+    </div>
+    <div v-else>
+        <label>Email</label>
+        <input placeholder="Enter your email address" key="email-input">
+    </div>
+    <button @click="changeLoginType">更改loginType</button>
+</div>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            loginType:"username"
+        },
+        methods: {
+            changeLoginType: function () {
+                if (this.loginType === "username") {
+                    this.loginType = "email"
+                }
+                else {
+                    this.loginType = "username"
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

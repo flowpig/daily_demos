@@ -7,22 +7,25 @@
 </head>
 <body>
 <div id="app">
-    <div v-if="loginType === 'username'">
+    <!--把一个 <template> 元素当做不可见的包裹元素，并在上面使用 v-if。最终的渲染结果将不包含 <template> 元素。可以把这里的template换成div试试效果-->
+    <template v-if="loginType === 'username'">
         <label>Username</label>
         <input placeholder="Enter your username" key="username-input">
-    </div>
-    <div v-else>
+    </template>
+    <template v-else>
         <label>Email</label>
         <input placeholder="Enter your email address" key="email-input">
-    </div>
-    <button @click="changeLoginType">更改loginType</button>
+    </template>
+    <p>
+        <button @click="changeLoginType">更改loginType</button>
+    </p>
 </div>
 
 <script type="text/javascript">
     var app = new Vue({
         el: "#app",
         data: {
-            loginType:"username"
+            loginType: "username"
         },
         methods: {
             changeLoginType: function () {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>component组件props属性设置</title>
+    <script type="text/javascript" src="../asserts/js/vue.js"></script>
+</head>
+<body>
+<h1>component组件props属性设置</h1>
+<hr>
+<div id="myapp">
+    <panda1 here="China"></panda1>
+    <panda2 here-from="CH"></panda2>
+    <panda3 v-bind:here3="message"></panda3>
+</div>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#myapp',
+        data: {
+            message: "Hello World!"
+        },
+        components: {
+            "panda1": {
+                template: '<div style="color: red">Panda from {{here}}</div>',
+                props: ['here']
+            },
+            "panda2": {
+                template: '<div style="color: blue">Panda from {{hereFrom}}</div>',
+                props: ['hereFrom']
+            },
+            "panda3": {
+                template: '<div style="color: orange">Panda from {{here3}}</div>',
+                props: ['here3']
+            }
+        }
+    })
+</script>
+</body>
+</html>

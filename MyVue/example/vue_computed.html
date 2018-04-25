@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>computed Option  计算选项</title>
+    <script type="text/javascript" src="../asserts/js/vue.js"></script>
+</head>
+<body>
+<h2>computed Option  计算选项</h2>
+<hr>
+    <div id="app">
+        {{newPrice}}
+    </div>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            price: 100
+        },
+        computed: {
+            newPrice: function () {
+                return '￥' + this.price + '元'
+            }
+        }
+    })
+</script>
+</body>
+</html>

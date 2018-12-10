@@ -8,7 +8,7 @@ import data_pb2
 import data_pb2_grpc
 
 _HOST = '127.0.0.1'
-_PORT = '50051'
+_PORT = '19999'
 
 
 def run():

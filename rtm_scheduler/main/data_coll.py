@@ -1,7 +1,9 @@
-#!/usr/bin/env python2.7
+#!/py3_env/bin/python
 import os
-import time
 import sys
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+import time
 from configparser import RawConfigParser
 from utils.logger import LoggerUtil
 from utils.threadpool import ThreadPool, makeRequests, NoResultsPending
@@ -9,7 +11,6 @@ from utils.rtm_api import RtmAPI
 from rtm_lib.host_queue import HostQueue
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RTM_CONF = os.path.join(BASE_DIR, "confs", "rtm.cfg")
 
 COLLECT_INTERVAL = 5 * 60

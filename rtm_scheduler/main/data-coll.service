@@ -1,0 +1,15 @@
+[Unit]
+Description=data collector
+After=
+
+[Service]
+Type=oneshot
+ExecStart=/soft/daily/daily_demos/rtm_scheduler/main/data_collector start &
+ExecStop=/soft/daily/daily_demos/rtm_scheduler/main/data_collector stop &
+ExecReload=/soft/daily/daily_demos/rtm_scheduler/main/data_collector restart &
+RemainAfterExit=yes
+User=root
+
+[Install]
+WantedBy=multi-user.target
+

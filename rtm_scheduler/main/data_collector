@@ -1,6 +1,5 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          data_collector
 # Required-Start:
 # Required-Stop:
 # Default-Start:
@@ -13,10 +12,9 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin
 
 
 do_stop () {
-    ps -ef | grep "/opt/nokia/rtm/data_collector/main/data_collector_daemo.py" | grep -v "grep" | awk '{print $2}'|xargs kill  > /dev/null 2>&1 &
-    ps -ef | grep "/opt/nokia/rtm/data_collector/main/data_collector.py" | grep -v "grep" | awk '{print $2}'|xargs kill  > /dev/null 2>&1 &
+    ps -ef | grep "/soft/daily/daily_demos/rtm_scheduler/main/data_coll.py" | grep -v "grep" | awk '{print $2}'|xargs kill  > /dev/null 2>&1 &
     sleep 1;
-    pid=$(ps -ef | grep "/opt/nokia/rtm/data_collector/main/data_collector.py" | grep -v "grep" | awk '{print $2}')
+    pid=$(ps -ef | grep "/soft/daily/daily_demos/rtm_scheduler/main/data_coll.py" | grep -v "grep" | awk '{print $2}')
     if [ ! -n "$pid" ] ; then
         echo "Stop data collector ok"
     else
@@ -26,7 +24,7 @@ do_stop () {
 
 do_start () {
     export MIBS="ALL"
-    count=$(cat "/opt/nokia/rtm/data_collector/config/rtm.cfg" |grep "process_number"|awk -F '=' '{print $2}')
+    count=$(cat "/soft/daily/daily_demos/rtm_scheduler/confs/rtm.cfg" |grep "process_number"|awk -F '=' '{print $2}')
     count="$(echo -e "${count}" | sed -e 's/^[[:space:]]*//')"
     if [ "$count" = "" ]
     then
@@ -36,23 +34,15 @@ do_start () {
     for ((i = 0 ; i < $count ; i++));
     do
         echo $i;
-        /opt/nokia/rtm/data_collector/main/data_collector.py $count $i  > /dev/null 2>&1 &
+        /soft/daily/daily_demos/rtm_scheduler/main/data_coll.py $count $i  > /dev/null 2>&1 &
     done
 
-    pid=$(ps -ef | grep "/opt/nokia/rtm/data_collector/main/data_collector.py" | grep -v "grep" | awk '{print $2}')
+    pid=$(ps -ef | grep "/soft/daily/daily_demos/rtm_scheduler/main/data_coll.py" | grep -v "grep" | awk '{print $2}')
     sleep 1;
     if [ ! -n "$pid" ] ; then
         echo "Start data collector failed. Please retry ...."
     else
         echo "Start data collector ok"
-    fi
-    /opt/nokia/rtm/data_collector/main/data_collector_daemo.py > /dev/null 2>&1 &
-    pid=$(ps -ef | grep "/opt/nokia/rtm/data_collector/main/data_collector_daemo.py" | grep -v "grep" | awk '{print $2}')
-    sleep 1;
-    if [ ! -n "$pid" ] ; then
-        echo "Start data collector dameo failed. Please retry ...."
-    else
-        echo "Start data collector dameo ok"
     fi
 }
 

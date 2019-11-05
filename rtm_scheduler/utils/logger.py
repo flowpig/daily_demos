@@ -1,7 +1,7 @@
 import os
 import logging
 import logging.config
-
+from cloghandler import ConcurrentRotatingFileHandler
 CONFIG_DIR = "confs"
 LOG_NAME = "process_out_log"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

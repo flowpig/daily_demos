@@ -5,7 +5,7 @@ from utils.logger import LoggerUtil
 class NETasks(object):
     def __init__(self, task_str=None):
         self.logger = LoggerUtil().get_logger()
-        self.logger.info("Begin to run the task %s",str(task_str))
+        self.logger.info("Begin to run the task %s", str(task_str))
         self.task_info = json.loads(task_str)
         self.host_id = self.task_info["hostid"]
         self.run_time = self.task_info["last_run_time"]
@@ -22,7 +22,7 @@ class NETasks(object):
             temp = sum(i * i for i in range(number))
         print(temp)
         print("{} host end".format(self.host_id))
-        self.logger.info("Excute the task %s"%self.task_info)
+        self.logger.info("Excute the task %s" % self.task_info)
         self.upload_result()
 
     def upload_result(self):

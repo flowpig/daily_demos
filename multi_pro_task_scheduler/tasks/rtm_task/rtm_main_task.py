@@ -21,29 +21,32 @@ KNOWN_HOST = ["Local"]
 def epc_worker(task):
     try:
         print(task)
-        logger.info('running epc monitor %s'%task)
+        logger.info('running epc monitor %s' % task)
         task = NETasks(task)
         task.run()
-        logger.info("running epc monitor task %s success"%task)
+        logger.info("running epc monitor task %s success" % task)
     except Exception as e:
-        logger.exception("running epc task %s"%str(e))
+        logger.exception("running epc task %s" % str(e))
 
 # @timeout(600)
+
+
 def connection_check(task):
     try:
-        logger.info('running Connection check task %s'%task)
+        logger.info('running Connection check task %s' % task)
         task = NEConnDetectTasks(task)
         task.run()
-        logger.info('running Connection check task %s done'%task)
+        logger.info('running Connection check task %s done' % task)
     except Exception as e:
-        logger.exception("running Connection check task  %s"%str(e))
+        logger.exception("running Connection check task  %s" % str(e))
+
 
 def epc_monitor_timeout_fun(func, *args):
     try:
         task_str = args[0]
         func(task_str)
     except Exception as e:
-        logger.exception("running task %s :%e"%(task_str, str(e)))
+        logger.exception("running task %s :%e" % (task_str, str(e)))
     finally:
         return
 
@@ -66,8 +69,9 @@ class EPCMonTask(Task):
         now = time.time()
 
         current_minute = int(now / 60)
-        if current_minute > self.last_conn_check_time + 1 and (current_minute % 5) == 0:
-            logger.debug("Current time %d  last time %d ,begin to check the connection"% \
+        if current_minute > self.last_conn_check_time + \
+                1 and (current_minute % 5) == 0:
+            logger.debug("Current time %d  last time %d ,begin to check the connection" %
                          (current_minute, self.last_conn_check_time))
             self.last_conn_check_time = current_minute
             self._assign_conn_task()
@@ -95,19 +99,19 @@ class EPCMonTask(Task):
             tasks = {
                 "hostid": hostid,
                 "last_run_time": now_s
-                 }
+            }
             task_str = json.dumps(tasks)
             logger.info("assign task %s" % str(hostid))
             abortable_func = partial(epc_monitor_timeout_fun, epc_worker)
             self.pool.apply_async(abortable_func, args=[task_str])
 
     def _assign_conn_task(self):
-            tasks = {
-                "Time":self.last_conn_check_time
-            }
-            task_str = json.dumps(tasks)
-            abortable_func = partial(epc_monitor_timeout_fun, connection_check)
-            self.pool.apply_async(abortable_func,args=[task_str])
+        tasks = {
+            "Time": self.last_conn_check_time
+        }
+        task_str = json.dumps(tasks)
+        abortable_func = partial(epc_monitor_timeout_fun, connection_check)
+        self.pool.apply_async(abortable_func, args=[task_str])
 
     def _will_run_hosts(self, host_ids):
         return host_ids

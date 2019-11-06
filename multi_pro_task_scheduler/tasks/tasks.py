@@ -2,6 +2,15 @@ from utils.logger import LoggerUtil
 from utils.process.pool import ProcessPool
 from tasks.rtm_task.rtm_main_task import EPCMonTask
 
+"""
+if you want tou use concurrent.futures:
+
+import use concurrent.futures
+self.pool = concurrent.futures.ProcessPoolExecutor(count)
+
+submit task like this: self.pool.submit(abortable_func, task_str)
+"""
+
 
 class Tasks(object):
     def __init__(self, count, max_task):

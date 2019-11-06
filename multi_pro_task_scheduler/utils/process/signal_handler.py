@@ -10,6 +10,4 @@ class Gracekiller(object):
 
     def exit_gracefully(self, signum, frame):
         self.kill_now = True
-        self.logger.error('Get a singal process [%d] will exit '%signum)
-
-
+        self.logger.error('Get a singal process [%d] will exit ' % signum)

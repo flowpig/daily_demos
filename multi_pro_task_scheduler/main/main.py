@@ -1,3 +1,8 @@
+from tasks.tasks import Tasks
+from utils.process.signal_handler import Gracekiller
+from confs.settings import setting
+from utils.config import Config
+from utils.logger import LoggerUtil
 import os
 import time
 import sys
@@ -6,11 +11,6 @@ from concurrent import futures
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 
-from utils.logger import LoggerUtil
-from utils.config import Config
-from confs.settings import setting
-from utils.process.signal_handler import Gracekiller
-from tasks.tasks import Tasks
 
 logger = LoggerUtil().get_logger()
 

@@ -5,22 +5,23 @@ import (
     "net"
     "golang.org/x/net/context"
     "google.golang.org/grpc"
-    pb "github.com/freewebsys/grpc-go-demo/src/helloworld"
+    pb "../example"
     "google.golang.org/grpc/reflection"
     "fmt"
 )
 
 const (
-    port = "127.0.0.1:19998"
+    port = "127.0.0.1:19999"
 )
 
-// server is used to implement helloworld.GreeterServer.
+// server is used to implement example.GreeterServer.
 type server struct{}
 
-// SayHello implements helloworld.GreeterServer
+// SayHello implements example.GreeterServer
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
     fmt.Println("######### get client request name :"+in.Name)
-    return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+    fmt.Println("######### get client request message :"+in.Message)
+    return &pb.HelloReply{Message: "Hello " + in.Name + in.Message}, nil
 }
 
 func main() {

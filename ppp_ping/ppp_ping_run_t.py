@@ -78,7 +78,24 @@ class PingProcess(object):
         self.time_str = str(datetime.datetime.now()).split('.')[0]
 
     def _get_ips(self, hostid):
-        self.host_ip_q.put((10010, json.dumps(IP_VLAN_MAP)))
+        if hostid == 10010:
+            self.host_ip_q.put((10010, json.dumps(IP_VLAN_MAP)))
+        if hostid == 10022:
+            self.host_ip_q.put((10022, json.dumps(IP_VLAN_MAP)))
+        if hostid == 10033:
+            self.host_ip_q.put((10033, json.dumps(IP_VLAN_MAP)))
+        if hostid == 10055:
+            self.host_ip_q.put((10055, json.dumps(IP_VLAN_MAP)))
+        if hostid == 10077:
+            self.host_ip_q.put((10077, json.dumps(IP_VLAN_MAP_N)))
+        if hostid == 10099:
+            self.host_ip_q.put((10099, json.dumps(IP_VLAN_MAP)))
+        if hostid == 10110:
+            self.host_ip_q.put((10110, json.dumps(IP_VLAN_MAP)))
+        if hostid == 20220:
+            self.host_ip_q.put((20220, json.dumps(IP_VLAN_MAP)))
+        if hostid == 10220:
+            self.host_ip_q.put((10220, json.dumps(IP_VLAN_MAP)))
         return
         macro_res = self._get_host_macros(hostid)
         login_info = macro_res[MACRO_MAPPER["login_info"]]
@@ -136,7 +153,7 @@ class PingProcess(object):
         L.Count += 1
 
     def main_loop(self):
-        worker = 20
+        worker = 10
         if len(self.hostids) < worker:
             worker = len(self.hostids)
         pool = ThreadPool(worker)
@@ -216,9 +233,9 @@ class PingProcess(object):
 
     def _hand_ping_result(self, hostid, fping_result, ip_vlan_map):
         fping_res = re.findall(
-            r"(\d+\.\d+\.\d+\.\d+).*?xmt/rcv/%loss\s+=\s+(\d+)/(\d+)/(\d+)%.*?min/avg/max\s+=\s+([0-9\.]+)/([0-9\.]+)/([0-9\.]+)",
+            r"(\d+\.\d+\.\d+\.\d+).*?xmt/rcv/%loss\s+=\s+(\d+)/(\d+)/(\d+)%(?:,.*?min/avg/max\s+=\s+([0-9\.]+)/([0-9\.]+)/([0-9\.]+)|)",
             fping_result, re.S)
-        fping_res = [[hostid, ip_vlan_map[r[0]], r[0], r[1], r[2], r[3], r[4], r[5], r[6], self.time_str]
+        fping_res = [[hostid, ip_vlan_map[r[0]], r[0], r[1], r[2], r[3], r[4] if r[4] else 0, r[5] if r[5] else 0, r[6] if r[6] else 0, self.time_str]
                      for r in fping_res]
         print(fping_res)
         with DBConnectionManager(MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PWD, MYSQL_DB) as db_client:
@@ -233,7 +250,10 @@ class PingProcess(object):
             # Something is seriously wrong...
             self.logger.error(exc_info)
             raise SystemExit
+        L.Count += 1
         self.logger.error("**** Exception occured in request #%s: %s" %
+                          (request.requestID, exc_info))
+        print("**** Exception occured in request #%s: %s" %
                           (request.requestID, exc_info))
 
     def __call__(self, *args, **kwargs):
@@ -546,9 +566,10 @@ if __name__ == '__main__':
     """
     #IP_VLAN_MAP = {'10.255.243.236': 'svc:100 sap:[lag-8:3737.486]', '10.255.225.144': 'svc:100 sap:[lag-2:3750.133]', '10.255.232.64': 'svc:100 sap:[lag-7:3952.963]', '10.255.198.178': 'svc:100 sap:[lag-18:3046.850]', '10.255.247.9': 'svc:100 sap:[lag-17:3972.1118]'}
     IP_VLAN_MAP = {'127.0.0.1': 'svc:100 sap:[lag-8:3737.486]', '39.156.69.79': 'svc:100 sap:[lag-2:3750.133]', '110.185.121.221': 'svc:100 sap:[lag-7:3952.963]', '118.121.193.140': 'svc:100 sap:[lag-18:3046.850]', '110.185.121.218': 'svc:100 sap:[lag-17:3972.1118]'}
+    IP_VLAN_MAP_N = {'127.0.0.1': 'svc:100 sap:[lag-8:3737.486]', '39.156.69.79': 'svc:100 sap:[lag-2:3750.133]', '110.185.121.221': 'svc:100 sap:[lag-7:3952.963]', '118.121.193.140': 'svc:100 sap:[lag-18:3046.850]', '31.13.78.65': 'svc:100 sap:[lag-17:3972.1118]'}
     L = threading.local()
     L.Count = 0
-    with PingProcess(1, 200, [10010]) as pro:
+    with PingProcess(1, 200, [10010, 10022, 10033, 10055, 10077, 10099, 10110, 10220, 20220]) as pro:
         pro()
         print("end")
 

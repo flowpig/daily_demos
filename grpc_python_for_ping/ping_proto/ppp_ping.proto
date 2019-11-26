@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+service PPPsubPingServe {
+    rpc SubmitWillPing (DoPingRequest) returns (DoPingReply) {}
+}
+
+message DoPingRequest {
+    int32 schema = 1;
+    int32 users = 2;
+    repeated int64 hostids = 3;
+}
+
+message DoPingReply {
+    int32 key = 1;
+}

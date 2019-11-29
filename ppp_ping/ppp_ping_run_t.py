@@ -556,7 +556,7 @@ if __name__ == '__main__':
             return result
 
     api = RtmAPI('http://124.160.0.79:8090/service_robot',
-                 user='Admin', password='RTMAdmin!')
+                 user='xxxx', password='xxxx')
     ALL_STR = """
     10.255.243.236       : xmt/rcv/%loss = 4/4/0%, min/avg/max = 0.03/0.04/0.05
     10.255.225.144    : xmt/rcv/%loss = 4/4/0%, min/avg/max = 35.8/35.9/36.1

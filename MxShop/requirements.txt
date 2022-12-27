@@ -18,7 +18,7 @@ pip==9.0.3
 PyMySQL==0.8.0
 pytz==2018.3
 PyYAML==3.12
-setuptools==39.0.1
+setuptools==65.5.1
 six==1.11.0
 tablib==0.12.1
 unicodecsv==0.14.1
